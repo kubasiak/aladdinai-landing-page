@@ -1,0 +1,31 @@
+# Source media files (too large for GitHub)
+MEDIA/
+
+# Old duplicate files in root (not needed)
+admin-live.css
+admin-live.js
+admin-styles.css
+admin.js
+background-video*.mp4
+card-background.jpg
+script.js
+styles.css
+share-local.bat
+
+# Test files
+test-settings.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

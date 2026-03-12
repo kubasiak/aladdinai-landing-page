@@ -1,7 +1,7 @@
 // IndexedDB Storage (same as admin)
 const MediaStorage = {
     dbName: 'AladdinMediaDB',
-    version: 1,
+    version: 2,
     db: null,
 
     async init() {

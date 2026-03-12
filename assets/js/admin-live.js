@@ -24,7 +24,7 @@ let isAuthenticated = sessionStorage.getItem('adminAuth') === 'true';
 
 const MediaStorage = {
     dbName: 'AladdinMediaDB',
-    version: 1,
+    version: 2,
     db: null,
 
     // Initialize IndexedDB

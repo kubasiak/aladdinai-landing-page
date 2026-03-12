@@ -126,8 +126,16 @@ async function loadMediaLibrary() {
         const audio = await MediaStorage.getAll('audio');
         const screenshots = await MediaStorage.getAll('screenshots');
 
-        // If empty, add default media
+        // If empty, add default media (nebula first as default)
         if (videos.length === 0) {
+            await MediaStorage.saveVideo({
+                name: 'Nebula Space Background',
+                size: 9400000,
+                type: 'video/mp4',
+                data: 'assets/media/videos/vecteezy_moving-nebulas-space.mp4',
+                timestamp: Date.now(),
+                isDefault: true
+            });
             await MediaStorage.saveVideo({
                 name: 'Background Video - Fast',
                 size: 1200000,
@@ -141,14 +149,6 @@ async function loadMediaLibrary() {
                 size: 611000,
                 type: 'video/mp4',
                 data: 'assets/media/videos/background-video-part1.mp4',
-                timestamp: Date.now(),
-                isDefault: true
-            });
-            await MediaStorage.saveVideo({
-                name: 'Nebula Space Background',
-                size: 9400000,
-                type: 'video/mp4',
-                data: 'assets/media/videos/vecteezy_moving-nebulas-space.mp4',
                 timestamp: Date.now(),
                 isDefault: true
             });
@@ -175,16 +175,16 @@ async function loadMediaLibrary() {
 
         if (screenshots.length === 0) {
             await MediaStorage.saveScreenshot({
-                name: 'Card Background (Original)',
-                data: 'assets/images/card-background.jpg',
-                videoName: 'Original',
+                name: 'Card Background (Nebula)',
+                data: 'assets/images/card-background-nebula.jpg',
+                videoName: 'Nebula',
                 timestamp: Date.now(),
                 isDefault: true
             });
             await MediaStorage.saveScreenshot({
-                name: 'Card Background (Nebula)',
-                data: 'assets/images/card-background-nebula.jpg',
-                videoName: 'Nebula',
+                name: 'Card Background (Original)',
+                data: 'assets/images/card-background.jpg',
+                videoName: 'Original',
                 timestamp: Date.now(),
                 isDefault: true
             });

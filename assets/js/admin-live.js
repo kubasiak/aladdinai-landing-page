@@ -129,10 +129,45 @@ async function loadMediaLibrary() {
         // If empty, add default media
         if (videos.length === 0) {
             await MediaStorage.saveVideo({
-                name: 'Sunset Timelapse (Default)',
-                size: 1127424,
+                name: 'Background Video - Fast',
+                size: 1200000,
                 type: 'video/mp4',
-                data: 'assets/media/videos/background-video-slow.mp4',
+                data: 'assets/media/videos/background-video-fast.mp4',
+                timestamp: Date.now(),
+                isDefault: true
+            });
+            await MediaStorage.saveVideo({
+                name: 'Background Video - Part 1',
+                size: 611000,
+                type: 'video/mp4',
+                data: 'assets/media/videos/background-video-part1.mp4',
+                timestamp: Date.now(),
+                isDefault: true
+            });
+            await MediaStorage.saveVideo({
+                name: 'Nebula Space Background',
+                size: 9400000,
+                type: 'video/mp4',
+                data: 'assets/media/videos/vecteezy_moving-nebulas-space.mp4',
+                timestamp: Date.now(),
+                isDefault: true
+            });
+        }
+
+        if (audio.length === 0) {
+            await MediaStorage.saveAudio({
+                name: 'Demo Track 1',
+                size: 6600000,
+                type: 'audio/mp3',
+                data: 'assets/media/audio/Demo Track 1.mp3',
+                timestamp: Date.now(),
+                isDefault: true
+            });
+            await MediaStorage.saveAudio({
+                name: 'Demo Track 2',
+                size: 4900000,
+                type: 'audio/mp3',
+                data: 'assets/media/audio/Demo Track 2.mp3',
                 timestamp: Date.now(),
                 isDefault: true
             });
@@ -140,9 +175,16 @@ async function loadMediaLibrary() {
 
         if (screenshots.length === 0) {
             await MediaStorage.saveScreenshot({
-                name: 'Sunset Timelapse (Default)',
+                name: 'Card Background (Original)',
                 data: 'assets/images/card-background.jpg',
-                videoName: 'Sunset Timelapse (Default)',
+                videoName: 'Original',
+                timestamp: Date.now(),
+                isDefault: true
+            });
+            await MediaStorage.saveScreenshot({
+                name: 'Card Background (Nebula)',
+                data: 'assets/images/card-background-nebula.jpg',
+                videoName: 'Nebula',
                 timestamp: Date.now(),
                 isDefault: true
             });

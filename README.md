@@ -1,5 +1,13 @@
 # 🌟 AladdinAI Landing Page
 
+**🌐 Live Site:** https://kubasiak.github.io/aladdinai-landing-page/
+
+**📤 Share this URL with anyone** - it's publicly accessible!
+
+**📂 GitHub Repository:** https://github.com/kubasiak/aladdinai-landing-page
+
+---
+
 Professional landing page with live admin editor and media library management.
 
 ## 📁 Project Structure

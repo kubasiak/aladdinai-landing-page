@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export IndexedDB Media</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+        .file-list {
+            margin: 20px 0;
+        }
+        .file-item {
+            padding: 10px;
+            background: #e8f5e9;
+            margin: 5px 0;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📦 Export IndexedDB Media to Files</h1>
+
+    <p>This tool will export your videos, audio, and screenshots from IndexedDB to downloadable files.</p>
+
+    <button onclick="exportAllMedia()">Export All Media Files</button>
+
+    <div class="status" id="status">Ready to export...</div>
+
+    <div class="file-list" id="fileList"></div>
+
+    <script>
+        async function exportAllMedia() {
+            const status = document.getElementById('status');
+            const fileList = document.getElementById('fileList');
+
+            status.textContent = 'Opening IndexedDB...';
+
+            // Open IndexedDB
+            const db = await openDB();
+
+            if (!db) {
+                status.textContent = '❌ Could not open IndexedDB. Make sure you uploaded media in admin panel first.';
+                return;
+            }
+
+            fileList.innerHTML = '<h3>Exported Files:</h3>';
+
+            // Export videos
+            status.textContent = 'Exporting videos...';
+            const videos = await getAll(db, 'videos');
+            for (const video of videos) {
+                await downloadFile(video.data, video.name, video.type);
+                fileList.innerHTML += `<div class="file-item">✅ ${video.name} (${(video.size / 1024 / 1024).toFixed(2)} MB)</div>`;
+            }
+
+            // Export audio
+            status.textContent = 'Exporting audio...';
+            const audio = await getAll(db, 'audio');
+            for (const aud of audio) {
+                await downloadFile(aud.data, aud.name, aud.type);
+                fileList.innerHTML += `<div class="file-item">✅ ${aud.name} (${(aud.size / 1024 / 1024).toFixed(2)} MB)</div>`;
+            }
+
+            // Export screenshots
+            status.textContent = 'Exporting screenshots...';
+            const screenshots = await getAll(db, 'screenshots');
+            for (const screenshot of screenshots) {
+                const filename = `${screenshot.name}.jpg`;
+                await downloadFile(screenshot.data, filename, 'image/jpeg');
+                fileList.innerHTML += `<div class="file-item">✅ ${filename}</div>`;
+            }
+
+            status.textContent = `✅ Export complete! Downloaded ${videos.length} videos, ${audio.length} audio files, ${screenshots.length} screenshots.`;
+        }
+
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('AladdinMediaDB', 1);
+
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => resolve(request.result);
+            });
+        }
+
+        function getAll(db, storeName) {
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([storeName], 'readonly');
+                const store = transaction.objectStore(storeName);
+                const request = store.getAll();
+
+                request.onsuccess = () => resolve(request.result || []);
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        async function downloadFile(dataUrl, filename, mimeType) {
+            // Convert base64/data URL to blob
+            const response = await fetch(dataUrl);
+            const blob = await response.blob();
+
+            // Create download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            // Small delay between downloads
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+    </script>
+</body>
+</html>

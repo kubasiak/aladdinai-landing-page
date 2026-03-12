@@ -364,6 +364,15 @@ function initializeAdmin() {
     if (video) {
         video.play().catch(error => console.log('Video autoplay failed:', error));
     }
+
+    // Auto-play first audio if no audio is selected yet
+    const currentSettings = JSON.parse(localStorage.getItem('aladdinSettings') || '{}');
+    if (!currentSettings.selectedAudioId && mediaLibrary.audio.length > 0) {
+        useAudio(mediaLibrary.audio[0]);
+        const audioSelect = document.getElementById('audioSelect');
+        audioSelect.value = 0;
+        console.log('🎵 Auto-playing default audio:', mediaLibrary.audio[0].name);
+    }
 }
 
 // Setup live controls

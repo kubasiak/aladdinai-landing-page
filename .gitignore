@@ -29,3 +29,16 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Environment and secrets (if you add backend later)
+.env
+.env.local
+.env.production
+*.pem
+*.key
+*secret*
+*credentials*
+
+# Database files
+*.db
+*.sqlite

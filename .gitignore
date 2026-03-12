@@ -1,16 +1,16 @@
 # Source media files (too large for GitHub)
-MEDIA/
+/MEDIA/
 
 # Old duplicate files in root (not needed)
-admin-live.css
-admin-live.js
-admin-styles.css
-admin.js
-background-video*.mp4
-card-background.jpg
-script.js
-styles.css
-share-local.bat
+/admin-live.css
+/admin-live.js
+/admin-styles.css
+/admin.js
+/background-video*.mp4
+/card-background.jpg
+/script.js
+/styles.css
+/share-local.bat
 
 # Test files
 test-settings.js
